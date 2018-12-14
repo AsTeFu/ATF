@@ -6,17 +6,12 @@ using System.Windows.Forms;
 
 namespace DNF {
     static class Program {
-        /// <summary>
-        /// Главная точка входа для приложения.
-        /// </summary>
+
         [STAThread]
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
-            
-            
-            
         }
     }
 
@@ -126,8 +121,12 @@ namespace DNF {
         public static Function disjunction = new Function(new int[] { 0, 1, 1, 1 });
         public static Function implication = new Function(new int[] { 1, 1, 0, 1 });
 
-
-        private string PDNF {
+        public string PCNF {
+            get {
+                return GetPCNF();
+            }
+        }
+        public string PDNF {
             get {
                 return GetPDNF();
             }
@@ -142,7 +141,7 @@ namespace DNF {
 
             truthTable = GetTableTruthBinary(countVariables);
         }
-        private Function(int[] func) : this((int)Math.Log(func.Length, 2)) {
+        public Function(int[] func) : this((int)Math.Log(func.Length, 2)) {
             functionInt = func;
 
             bool[] f = new bool[func.Length];
@@ -175,7 +174,8 @@ namespace DNF {
                 num = num / 2;
             } while (num > 0);
 
-            return ConvertNumber(result, (int)Math.Pow(2, countVariables));
+            //return ConvertNumber(result, (int)Math.Pow(2, countVariables));
+            return ConvertNumber(result, countVariables);
         }
         private bool[,] GetTableTruth(int countVariables) {
 
@@ -258,6 +258,25 @@ namespace DNF {
             }
 
             return pdnf;
+        }
+        private string GetPCNF() {
+            string pcnf = "";
+
+            string Implicant(int index) {
+                string implicant = "(";
+                for (int i = 0; i < countVariables; i++) {
+                    implicant += namesVariables[i] + (truthTable[index, i] ? overline.ToString() : "");
+                }
+                return implicant + ")";
+            }
+
+            for (int i = 0; i < function.Length; i++) {
+                if (!function[i]) {
+                    pcnf += Implicant(i) + (i == function.Length - 1 ? "" : " ∧ ");
+                }
+            }
+
+            return pcnf;
         }
 
         public Function GetDualFunction() {

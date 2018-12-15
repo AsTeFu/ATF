@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HuffmanCode {
-    static class Program {
+    static class code {
 
         [STAThread]
         static void Main() {
@@ -19,38 +19,27 @@ namespace HuffmanCode {
 
     public class Huffman {
 
-        public class BinaryTree {
-            private BinaryTree root;
-            public BinaryTree leftChild {
-                get; private set;
-            }
-            public BinaryTree rightChild {
-                get; private set;
-            }
-
-            public int probabality {
-                get; private set;
-            }
+        private class BinaryTreeNode {
+            public BinaryTreeNode leftChild;
+            public BinaryTreeNode rightChild;
+            
+            
             public char symbol {
                 get; private set;
             }
 
-            public BinaryTree(char symbol, int probabality) {
+            public BinaryTreeNode(char symbol) {
                 this.symbol = symbol;
-                this.probabality = probabality;
             }
-
-            public BinaryTree(BinaryTree leftChild, BinaryTree rightChild, int value) {
+            public BinaryTreeNode(BinaryTreeNode leftChild, BinaryTreeNode rightChild) {
                 this.leftChild = leftChild;
                 this.rightChild = rightChild;
-
-                probabality = value;
             }
 
         }
         private class PriorityQueue <T> {
             Dictionary<T, int> queue;
-
+            
             public PriorityQueue() {
                 queue = new Dictionary<T, int>();
             }
@@ -65,19 +54,20 @@ namespace HuffmanCode {
                 queue.Add(element, priority);
             }
 
-            public T Dequeue() {
+            public (T, int) Dequeue() {
                 int min = queue.Values.Min();
                 T element = queue.First().Key;
+
                 foreach (T key in queue.Keys) {
                     if (min == queue[key]) {
                         element = key;
                         queue.Remove(key);
 
-                        return element;
+                        return (element, min);
                     }
                 }
 
-                return element;
+                return (element, min);
             }
         }
 
@@ -88,11 +78,17 @@ namespace HuffmanCode {
         public double averageLength {
             get; private set;
         }
+        public double compression {
+            get; private set;
+        }
 
         Dictionary<char, int> probabilityTable;
         Dictionary<char, string> codes;
-        BinaryTree tree;
+        BinaryTreeNode tree;
         
+        public Huffman(string huffmanText, Dictionary<char, string> codes) {
+
+        }
         public Huffman(string text) {
             codes = new Dictionary<char, string>();
             this.text = text;
@@ -102,19 +98,20 @@ namespace HuffmanCode {
         private string HuffmanText() {
             probabilityTable = GetProbabilityTable(text);
             Dictionary<char, int> tempTable = new Dictionary<char, int>(probabilityTable);
-            PriorityQueue<BinaryTree> queue = GetBinaryTrees(tempTable);
+            PriorityQueue<BinaryTreeNode> queue = GetBinaryTrees(tempTable);
             
             while(queue.Count > 1) {
-                BinaryTree first, second;
-
-                first = queue.Dequeue();
-                second = queue.Dequeue();
-
-                queue.Enqueue(new BinaryTree(first, second, first.probabality + second.probabality), first.probabality + second.probabality);
+                BinaryTreeNode first, second;
+                int prob1, prob2;
                 
+                (first, prob1) = queue.Dequeue();
+                (second, prob2) = queue.Dequeue();
+
+                queue.Enqueue(new BinaryTreeNode(first, second), prob1 + prob2);
             }
 
-            tree = queue.Dequeue();
+            int prob;
+            (tree, prob) = queue.Dequeue();
             GetCodes(tree, "");
             
             string tmp = "";
@@ -125,6 +122,7 @@ namespace HuffmanCode {
             }
 
             averageLength = AverageLength(probabilityTable);
+            compression = Compression(probabilityTable);
 
             return tmp;
         }
@@ -134,10 +132,18 @@ namespace HuffmanCode {
             foreach (char key in probabilityTable.Keys) {
                 averageLength += probabilityTable[key] * codes[key].Length;
             }
-
+            
             return averageLength / text.Length;
         }
-        private void GetCodes(BinaryTree tree, string c) {
+        private double Compression(Dictionary<char, int> probabilityTable) {
+            int lenght = 0;
+            foreach (char key in probabilityTable.Keys) {
+                lenght += probabilityTable[key] * codes[key].Length;
+            }
+
+            return (text.Length * 8.0 - lenght) / (text.Length * 8.0) * 100.0;
+        }
+        private void GetCodes(BinaryTreeNode tree, string c) {
             
             if (tree.leftChild != null) {
                 GetCodes(tree.leftChild, c + "0");
@@ -159,15 +165,15 @@ namespace HuffmanCode {
 
             return probabilityTable;
         }
-        private PriorityQueue<BinaryTree> GetBinaryTrees(Dictionary<char, int> probabilityTable) {
-            PriorityQueue<BinaryTree> queue = new PriorityQueue<BinaryTree>();
+        private PriorityQueue<BinaryTreeNode> GetBinaryTrees(Dictionary<char, int> probabilityTable) {
+            PriorityQueue<BinaryTreeNode> queue = new PriorityQueue<BinaryTreeNode>();
             
             while (probabilityTable.Count > 0) {
 
                 int maxPriority = probabilityTable.Values.Max();
                 foreach (char key in probabilityTable.Keys) {
                     if (probabilityTable[key] == maxPriority) {
-                        queue.Enqueue(new BinaryTree(key, maxPriority), maxPriority);
+                        queue.Enqueue(new BinaryTreeNode(key), maxPriority);
                         probabilityTable.Remove(key);
                         break;
                     } 
@@ -177,10 +183,10 @@ namespace HuffmanCode {
             return queue;
         }
         
-        public string GetOriginalText(BinaryTree root, string huffmanText) {
+        private string GetOriginalText(BinaryTreeNode root, string huffmanText) {
             string originalText = "";
 
-            BinaryTree currentNode = root;
+            BinaryTreeNode currentNode = root;
             for (int i = 0; i < huffmanText.Length; i++) { 
                 if (huffmanText[i] == '0') {
 
@@ -201,6 +207,33 @@ namespace HuffmanCode {
             }
 
             return originalText;
+        }
+        private string GetOriginalText(Dictionary<char, string> codes, string huffmanText) {
+            string text = "";
+
+            string lastCode = "";
+            for (int i = 0; i < huffmanText.Length; i++) {
+                lastCode += huffmanText[i];
+
+                foreach (char key in codes.Keys) {
+                    if (lastCode == codes[key]) {
+                        text += key;
+                        lastCode = "";
+                    }
+                }
+            }
+
+            return text;
+        }
+
+        public string GetCodes() {
+            string codesText = "";
+
+            foreach(char key in codes.Keys) {
+                codesText += $"{key}:\t {codes[key]}{Environment.NewLine}";
+            }
+
+            return codesText;
         }
     }
 }

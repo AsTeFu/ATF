@@ -20,6 +20,11 @@ namespace WpfApp1 {
         public MainWindow() {
             InitializeComponent();
 
+            margin = 40 * (1.0 / sizeField);
+
+            cellSize = ((gridWidth - margin * 2) - margin * sizeField) / sizeField;
+            fontSize = 180 * (1.0 / sizeField);
+
             CreateGamefield();
 
             Start();
@@ -44,7 +49,9 @@ namespace WpfApp1 {
         private double moveCellDuration = 0.05;
         private double cellSizeDuration = 0.2;
         private double cellColorDuration = 0.1;
-        private double cellSizeDelay = 0.04;
+        private double cellSizeDelay = 0.03;
+
+        private double newCellSize = 1.1;
 
         private int[,] field;
         private Canvas[,] cells;
@@ -60,9 +67,9 @@ namespace WpfApp1 {
         private int canvasHeight = 400;
         private SolidColorBrush bakcgroundColor = new SolidColorBrush(Color.FromRgb(165, 148, 130));
         private int radiusBackground = 5;
-        private int sizeField = 4;
+        private int sizeField = 5;
 
-        private int margin = 10;
+        private double margin = 10;
         Grid gameField;
         private int gridWidth = 400;
         private int gridHeight = 400;
@@ -74,22 +81,52 @@ namespace WpfApp1 {
 
         private Rectangle backgroundField;
         private int score = 0;
+        private int Score {
+            set {
+                score = value;
+                scoreLabel.Text = value.ToString();
+            } 
+            get {
+                return score;
+            }
+        }
 
+        private int[,] lastField;
+        private int lastScore;
 
         public void Start() {
-            field = GetClearField();
+            cells = new Canvas[sizeField, sizeField];
+            lastField = GetClearField();
 
+            field = GetClearField();
+            
             NewCell();
             NewCell();
+
+            CopyTable(ref lastField, field);
 
             score = 0;
-            scoreLabel.Text = "1337";
         }
 
         private void NewGame(object sender, EventArgs e) {
-            CreateGamefield();
+            gameField.Children.RemoveRange(sizeField * sizeField, gameField.Children.Count - sizeField * sizeField);
 
             Start();
+        }
+        private void LastStep(object sender, EventArgs e) {
+            gameField.Children.RemoveRange(sizeField * sizeField, gameField.Children.Count - sizeField * sizeField);
+            cells = new Canvas[sizeField, sizeField];
+
+            CopyTable(ref field, lastField);
+            Score = lastScore;
+
+            for (int i = 0; i < sizeField; i++) {
+                for (int j = 0; j < sizeField; j++) {
+                    if (field[i, j] != 1) {
+                        NewCell(i, j, field[i, j]);
+                    }
+                }
+            }
         }
         
         private void CreateGamefield() {
@@ -119,9 +156,7 @@ namespace WpfApp1 {
                 gameField.RowDefinitions.Add(row);
                 gameField.ColumnDefinitions.Add(column);
             }
-
-            cells = new Canvas[sizeField, sizeField];
-
+            
             for (int i = 0; i < sizeField; i++) {
                 for (int j = 0; j < sizeField; j++) {
                     Rectangle cell = new Rectangle();
@@ -146,23 +181,23 @@ namespace WpfApp1 {
         }
 
         private void InputPlayer(object sender, KeyEventArgs e) {
-            switch(e.Key) {
-                case Key.Up:
-                case Key.W:
-                    SwipeUp();
-                    break;
-                case Key.Down:
-                case Key.S:
-                    SwipeDown();
-                    break;
-                case Key.Left:
-                case Key.A:
-                    SwipeLeft();
-                    break;
-                case Key.Right:
-                case Key.D:
-                    SwipeRight();
-                    break;
+            CopyTable(ref lastField, field);
+
+            if (e.Key == Key.Up || e.Key == Key.W)
+                SwipeUp();
+            else if (e.Key == Key.Down || e.Key == Key.S)
+                SwipeDown();
+            else if (e.Key == Key.Left || e.Key == Key.A)
+                SwipeLeft();
+            else if (e.Key == Key.Right || e.Key == Key.D) 
+                SwipeRight();
+        }
+
+        private void CopyTable(ref int[,] copyTo, int[,] copyFrom) {
+            for (int i = 0; i < sizeField; i++) {
+                for (int j = 0; j < sizeField; j++) {
+                    copyTo[i, j] = copyFrom[i, j];
+                }
             }
         }
         
@@ -180,10 +215,10 @@ namespace WpfApp1 {
                         cells[pivot, col] = cells[row, col];
 
                         TranslateCell(Direction.Down, row, pivot, cells[row, col], false);
-
-                        field[row--, col] = 1;
-                        cells[row + 1, col] = null;
-
+                        
+                        field[row, col] = 1;
+                        cells[row--, col] = null;
+                        
                         isMove = true;
 
                     } else if (field[pivot, col] == field[row, col]) {
@@ -341,10 +376,12 @@ namespace WpfApp1 {
             }
             return true;
         }
-                
-        private void NewCell() {
-            var (x, y) = GetRandomEmptyCell();
-            int lower = rnd.Next(0, 100) > 80 ? 4 : 2;
+
+        private void NewCell(int x = -1, int y = -1, int value = -1) {
+            if (x == -1 || y == -1)
+                (x, y) = GetRandomEmptyCell();
+
+            int lower = value == -1 ? rnd.Next(0, 100) > 80 ? 4 : 2 : value;
             field[x,y] = lower;
             
             Canvas cnv = new Canvas();
@@ -421,10 +458,11 @@ namespace WpfApp1 {
             transform.BeginAnimation(isVertical ? TranslateTransform.YProperty : TranslateTransform.XProperty, anim);
         }
         private void AddingCell(Canvas cell, int value) {
-            AnimateSizeCell(cell, cell.Width * 1.05, cellSizeDuration, true, cellSizeDelay);
+            AnimateSizeCell((Rectangle)cell.Children[0], cell.Width * newCellSize, cellSizeDuration, true, cellSizeDelay);
+            AnimateSizeCell(cell, cell.Width * newCellSize, cellSizeDuration, true, cellSizeDelay);
 
-            score += value;
-            scoreLabel.Text = score.ToString();
+            lastScore = Score;
+            Score += value;
 
             ChengeColor(cell, value);
 

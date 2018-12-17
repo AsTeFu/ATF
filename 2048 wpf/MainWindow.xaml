@@ -25,8 +25,8 @@
 
             <TextBlock Text="SCORE" Margin="40 35 0 30" TextAlignment="Center" Foreground="#eee4da" FontWeight="Bold" Grid.Column="1"/>
             <TextBlock Name="scoreLabel" Text="1337" Margin="40 47 0 30" TextAlignment="Center" Foreground="#fff" FontWeight="Bold" FontSize="20" Grid.Column="1"/>
-            
-            <TextBlock Text="AsTeFu" Margin="20 35 20 30" TextAlignment="Center" Foreground="#fff" FontWeight="Bold" FontSize="20" Grid.Column="2" MouseEnter="mouseEnterATF" MouseLeave="mouseLeaveATF" Name="ATF"/>
+
+            <TextBlock Text="Return" Margin="20 35 20 30" TextAlignment="Center" Foreground="#fff" FontWeight="Bold" FontSize="20" Grid.Column="2" MouseEnter="mouseEnterATF" MouseLeave="mouseLeaveATF" MouseDown="LastStep" Name="ATF"/>
 
             <Rectangle Height="50" Width="180" Margin="75 -20 0 0" RadiusX="10" RadiusY="10" Fill="#bbada0" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"/>
             <TextBlock Text="NEW GAME" Margin="75 -10 0 0"  TextAlignment="Center" Foreground="#fff" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" FontSize="20" FontWeight="Bold" MouseDown="NewGame"/>

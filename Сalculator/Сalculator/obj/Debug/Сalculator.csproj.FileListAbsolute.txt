@@ -1,0 +1,17 @@
+C:\Users\Vyacheslav\source\repos\Сalculator\Сalculator\bin\Debug\Сalculator.exe.config
+C:\Users\Vyacheslav\source\repos\Сalculator\Сalculator\bin\Debug\Сalculator.exe
+C:\Users\Vyacheslav\source\repos\Сalculator\Сalculator\bin\Debug\Сalculator.pdb
+C:\Users\Vyacheslav\source\repos\Сalculator\Сalculator\bin\Debug\NCalc.dll
+C:\Users\Vyacheslav\source\repos\Сalculator\Сalculator\obj\Debug\Сalculator.csprojAssemblyReference.cache
+C:\Users\Vyacheslav\source\repos\Сalculator\Сalculator\obj\Debug\MainWindow.g.cs
+C:\Users\Vyacheslav\source\repos\Сalculator\Сalculator\obj\Debug\App.g.cs
+C:\Users\Vyacheslav\source\repos\Сalculator\Сalculator\obj\Debug\Сalculator_MarkupCompile.cache
+C:\Users\Vyacheslav\source\repos\Сalculator\Сalculator\obj\Debug\Сalculator_MarkupCompile.lref
+C:\Users\Vyacheslav\source\repos\Сalculator\Сalculator\obj\Debug\MainWindow.baml
+C:\Users\Vyacheslav\source\repos\Сalculator\Сalculator\obj\Debug\Сalculator.g.resources
+C:\Users\Vyacheslav\source\repos\Сalculator\Сalculator\obj\Debug\Сalculator.Properties.Resources.resources
+C:\Users\Vyacheslav\source\repos\Сalculator\Сalculator\obj\Debug\Сalculator.csproj.GenerateResource.cache
+C:\Users\Vyacheslav\source\repos\Сalculator\Сalculator\obj\Debug\Сalculator.csproj.CoreCompileInputs.cache
+C:\Users\Vyacheslav\source\repos\Сalculator\Сalculator\obj\Debug\Сalculator.csproj.CopyComplete
+C:\Users\Vyacheslav\source\repos\Сalculator\Сalculator\obj\Debug\Сalculator.exe
+C:\Users\Vyacheslav\source\repos\Сalculator\Сalculator\obj\Debug\Сalculator.pdb

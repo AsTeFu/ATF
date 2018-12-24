@@ -1,0 +1,229 @@
+﻿<Window x:Class="Сalculator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Сalculator"
+        mc:Ignorable="d"
+        Title="Калькулятор" Height="500" Width="700"
+        Background="Black">
+
+    <Window.Resources>
+        <Style x:Key="CanvasButton" TargetType="Grid">
+            <EventSetter Event="MouseEnter" Handler="MouseEnterEvn"/>
+            <EventSetter Event="MouseLeave" Handler="MouseLeaveEvn"/>
+        </Style>
+        
+        <Style x:Key="ButtonText" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="35"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+
+        <Style x:Key="ButtonImage" TargetType="Rectangle">
+            <Setter Property="Fill" Value="White"/>
+            
+        </Style>
+        <Style x:Key="ButtonImageYellow" TargetType="Rectangle" BasedOn="{StaticResource ButtonImage}">
+            <Setter Property="Fill" Value="#ffd429"/>
+        </Style>
+        <Style x:Key="ButtonImageDark" TargetType="Rectangle" BasedOn="{StaticResource ButtonImage}">
+            <Setter Property="Fill" Value="#d4d4d4"/>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Rectangle Margin="-3 -3 -3 -1" Fill="White" Grid.ColumnSpan="8"/>
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="7">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.4*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            
+            <Grid>
+                <TextBlock Name="Answer" Text="(2 * 5) + 3" FontWeight="Medium" Margin="150 0 40 0" FontSize="25" Foreground="Gray" TextAlignment="Right" VerticalAlignment="Bottom"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <TextBlock HorizontalAlignment="Stretch" Name="Field" Text="2 * 5 + 3" FontWeight="Medium" Margin="150 0 40 0" FontSize="50" TextAlignment="Right" VerticalAlignment="Top"/>
+            </Grid>
+        </Grid>
+
+        <!--=========================================-->
+        <Grid MouseDown="ClickCButton" Style="{StaticResource CanvasButton}" Grid.Row="5" Grid.Column="3">
+            <Rectangle Style="{StaticResource ButtonImage}"></Rectangle>
+            <TextBlock Text="C" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <Grid MouseDown="ClickNumericalButton" Style="{StaticResource CanvasButton}" Grid.Row="5" Grid.Column="4">
+            <Rectangle Style="{StaticResource ButtonImage}"></Rectangle>
+            <TextBlock Text="0" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <Grid MouseDown="ClickPointButton" Style="{StaticResource CanvasButton}" Grid.Row="5" Grid.Column="5">
+            <Rectangle Style="{StaticResource ButtonImage}"></Rectangle>
+            <TextBlock Text="," Style="{StaticResource ButtonText}"/>
+        </Grid>
+
+        <Grid MouseDown="ClickNumericalButton" Style="{StaticResource CanvasButton}" Grid.Row="4" Grid.Column="3">
+            <Rectangle Style="{StaticResource ButtonImage}"></Rectangle>
+            <TextBlock Text="1" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <Grid MouseDown="ClickNumericalButton" Style="{StaticResource CanvasButton}" Grid.Row="4" Grid.Column="4">
+            <Rectangle Style="{StaticResource ButtonImage}"></Rectangle>
+            <TextBlock Text="2" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <Grid MouseDown="ClickNumericalButton" Style="{StaticResource CanvasButton}" Grid.Row="4" Grid.Column="5">
+            <Rectangle Style="{StaticResource ButtonImage}"></Rectangle>
+            <TextBlock Text="3" Style="{StaticResource ButtonText}"/>
+        </Grid>
+
+        <Grid MouseDown="ClickNumericalButton" Style="{StaticResource CanvasButton}" Grid.Row="3" Grid.Column="3">
+            <Rectangle Style="{StaticResource ButtonImage}"></Rectangle>
+            <TextBlock Text="4" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <Grid MouseDown="ClickNumericalButton" Style="{StaticResource CanvasButton}" Grid.Row="3" Grid.Column="4">
+            <Rectangle Style="{StaticResource ButtonImage}"></Rectangle>
+            <TextBlock Text="5" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <Grid MouseDown="ClickNumericalButton" Style="{StaticResource CanvasButton}" Grid.Row="3" Grid.Column="5">
+            <Rectangle Style="{StaticResource ButtonImage}"></Rectangle>
+            <TextBlock Text="6" Style="{StaticResource ButtonText}"/>
+        </Grid>
+
+        <Grid MouseDown="ClickNumericalButton" Style="{StaticResource CanvasButton}" Grid.Row="2" Grid.Column="3">
+            <Rectangle Style="{StaticResource ButtonImage}"></Rectangle>
+            <TextBlock Text="7" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <Grid MouseDown="ClickNumericalButton" Style="{StaticResource CanvasButton}" Grid.Row="2" Grid.Column="4">
+            <Rectangle Style="{StaticResource ButtonImage}"></Rectangle>
+            <TextBlock Text="8" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <Grid MouseDown="ClickNumericalButton" Style="{StaticResource CanvasButton}" Grid.Row="2" Grid.Column="5">
+            <Rectangle Style="{StaticResource ButtonImage}"></Rectangle>
+            <TextBlock Text="9" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <!--=========================================-->
+
+        <Grid MouseDown="ClickParenthesRight" Style="{StaticResource CanvasButton}" Grid.Row="1" Grid.Column="3">
+            <Rectangle Style="{StaticResource ButtonImage}"></Rectangle>
+            <TextBlock Text="(" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <Grid MouseDown="ClickParenthesLeft" Style="{StaticResource CanvasButton}" Grid.Row="1" Grid.Column="4">
+            <Rectangle Style="{StaticResource ButtonImage}"></Rectangle>
+            <TextBlock Text=")" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <Grid MouseDown="ClickDeleteButton" Style="{StaticResource CanvasButton}" Grid.Row="1" Grid.Column="5">
+            <Rectangle Style="{StaticResource ButtonImage}"></Rectangle>
+            <TextBlock Text="del" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <!--=========================================-->
+
+        <Grid MouseDown="ClickOperatorButton" Style="{StaticResource CanvasButton}" Grid.Row="1" Grid.Column="7">
+            <Rectangle Style="{StaticResource ButtonImageYellow}"></Rectangle>
+            <TextBlock Text="/" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <Grid MouseDown="ClickOperatorButton" Style="{StaticResource CanvasButton}" Grid.Row="2" Grid.Column="7">
+            <Rectangle Style="{StaticResource ButtonImageYellow}"></Rectangle>
+            <TextBlock Text="*" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <Grid MouseDown="ClickOperatorButton" Style="{StaticResource CanvasButton}" Grid.Row="3" Grid.Column="7">
+            <Rectangle Style="{StaticResource ButtonImageYellow}"></Rectangle>
+            <TextBlock Text="-" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <Grid MouseDown="ClickOperatorButton" Style="{StaticResource CanvasButton}" Grid.Row="4" Grid.Column="7">
+            <Rectangle Style="{StaticResource ButtonImageYellow}"></Rectangle>
+            <TextBlock Text="+" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <Grid MouseDown="ClickEqualButton" Style="{StaticResource CanvasButton}" Grid.Row="5" Grid.Column="7">
+            <Rectangle Style="{StaticResource ButtonImageYellow}"></Rectangle>
+            <TextBlock Text="=" Style="{StaticResource ButtonText}"/>
+        </Grid>
+
+        <!--=========================================-->
+        <Grid Style="{StaticResource CanvasButton}" Grid.Row="1" Grid.Column="0">
+            <Rectangle Style="{StaticResource ButtonImageDark}"></Rectangle>
+            <TextBlock Text="x^y" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <Grid Style="{StaticResource CanvasButton}" Grid.Row="1" Grid.Column="1">
+            <Rectangle Style="{StaticResource ButtonImageDark}"></Rectangle>
+            <TextBlock Text="x^(1/y)" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <Grid Style="{StaticResource CanvasButton}" Grid.Row="1" Grid.Column="2">
+            <Rectangle Style="{StaticResource ButtonImageDark}"></Rectangle>
+            <TextBlock Text="e^x" Style="{StaticResource ButtonText}"/>
+        </Grid>
+
+        <Grid MouseDown="CLickFunc" Style="{StaticResource CanvasButton}" Grid.Row="2" Grid.Column="0">
+            <Rectangle Style="{StaticResource ButtonImageDark}"></Rectangle>
+            <TextBlock Text="Sin" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <Grid MouseDown="CLickFunc" Style="{StaticResource CanvasButton}" Grid.Row="2" Grid.Column="1">
+            <Rectangle Style="{StaticResource ButtonImageDark}"></Rectangle>
+            <TextBlock Text="Cos" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <Grid MouseDown="CLickFunc" Style="{StaticResource CanvasButton}" Grid.Row="2" Grid.Column="2">
+            <Rectangle Style="{StaticResource ButtonImageDark}"></Rectangle>
+            <TextBlock Text="Tan" Style="{StaticResource ButtonText}"/>
+        </Grid>
+
+        <Grid Style="{StaticResource CanvasButton}" Grid.Row="3" Grid.Column="0">
+            <Rectangle Style="{StaticResource ButtonImageDark}"></Rectangle>
+            <TextBlock Text="1/x" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <Grid MouseDown="CLickFunc" Style="{StaticResource CanvasButton}" Grid.Row="3" Grid.Column="1">
+            <Rectangle Style="{StaticResource ButtonImageDark}"></Rectangle>
+            <TextBlock Text="Sqrt" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <Grid Style="{StaticResource CanvasButton}" Grid.Row="3" Grid.Column="2">
+            <Rectangle Style="{StaticResource ButtonImageDark}"></Rectangle>
+            <TextBlock Text="x!" Style="{StaticResource ButtonText}"/>
+        </Grid>
+
+        <Grid Style="{StaticResource CanvasButton}" Grid.Row="4" Grid.Column="0">
+            <Rectangle Style="{StaticResource ButtonImageDark}"></Rectangle>
+            <TextBlock Text="ln" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <Grid Style="{StaticResource CanvasButton}" Grid.Row="4" Grid.Column="1">
+            <Rectangle Style="{StaticResource ButtonImageDark}"></Rectangle>
+            <TextBlock Text="log" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <Grid Style="{StaticResource CanvasButton}" Grid.Row="4" Grid.Column="2">
+            <Rectangle Style="{StaticResource ButtonImageDark}"></Rectangle>
+            <TextBlock Text="log y" Style="{StaticResource ButtonText}"/>
+        </Grid>
+
+        <Grid MouseDown="ClickE" Style="{StaticResource CanvasButton}" Grid.Row="5" Grid.Column="0">
+            <Rectangle Style="{StaticResource ButtonImageDark}"></Rectangle>
+            <TextBlock Text="e" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <Grid MouseDown="ClickPi" Style="{StaticResource CanvasButton}" Grid.Row="5" Grid.Column="1">
+            <Rectangle Style="{StaticResource ButtonImageDark}"></Rectangle>
+            <TextBlock Text="π" Style="{StaticResource ButtonText}"/>
+        </Grid>
+        <Grid MouseDown="ClickChengeOperator" Style="{StaticResource CanvasButton}" Grid.Row="5" Grid.Column="2">
+            <Rectangle Style="{StaticResource ButtonImageDark}"></Rectangle>
+            <TextBlock Text="+-" Style="{StaticResource ButtonText}"/>
+        </Grid>
+
+    </Grid>
+</Window>

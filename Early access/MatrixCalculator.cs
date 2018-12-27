@@ -5,19 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MatrixCalculator {
-    class Program {
-        static void Main(string[] args) {
-
-            Matrix A = new Matrix(new double[,] { { 1, 13, 5, 7 }, { 2, 4, 6, 28 } });
-            Matrix B = new Matrix(new double[,] { { 0, 13, -2, -4 }, { -1, 2, 3, -5 } });
-
-            Console.WriteLine((A-2*B).Transpose());
-
-            Console.Read();
-
-        }
-    }
-
+    
     class Matrix {
 
         public int Lines {
@@ -46,6 +34,9 @@ namespace MatrixCalculator {
         public double this[int i, int j] {
             get {
                 return matrix[i, j];
+            }
+            set {
+                matrix[i, j] = value;
             }
         }
 
@@ -118,8 +109,7 @@ namespace MatrixCalculator {
                 return Lines == Columns;
             }
         }
-
-
+        
         public static Matrix operator +(Matrix leftOperand, Matrix rightOperand) {
             if (leftOperand.Lines == rightOperand.Lines && leftOperand.Columns == rightOperand.Columns) {
                 Matrix newMatrix = new Matrix(leftOperand.Lines, leftOperand.Columns);
@@ -243,8 +233,7 @@ namespace MatrixCalculator {
 
             return new Matrix(E);
         }
-
-
+        
         public string GetElemet(int i, int j) {
             if (i <= Lines && j <= Columns)
                 return $"Элемент [{i}, {j}] = {matrix[i - 1, j - 1]}";
@@ -262,6 +251,14 @@ namespace MatrixCalculator {
             }
 
             return tmp;
+        }
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

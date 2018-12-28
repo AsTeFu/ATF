@@ -24,14 +24,14 @@ namespace ColorPicker {
 
         private SolidColorBrush defColor = new SolidColorBrush(Color.FromRgb(255, 204, 0));
 
-        char[] validate = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', '#', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+        char[] validate = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         private void hexUp(object sender, EventArgs e) {
-            string hex = this.hex.Text.ToUpper();
-            if (hex.Trim(validate) == "" && hex.Length == 7) {
+            string hex = this.hex.Text.ToUpper().Trim('#');
+            if (hex.Trim(validate) == "" && hex.Length == 6) {
                 byte[] rgbColor = HexToRGB(hex.Replace("#", ""));
 
                 Color color = Color.FromRgb(rgbColor[0], rgbColor[1], rgbColor[2]);
-                rgb.Text = $"{rgbColor[0]}, {rgbColor[1]}, {rgbColor[2]}";
+                rgb.Text = $"rgb({rgbColor[0]}, {rgbColor[1]}, {rgbColor[2]})";
                 Background = new SolidColorBrush(color);
                 ColorText(color);
             } else {
@@ -39,38 +39,21 @@ namespace ColorPicker {
                 Background = defColor;
                 ColorText(defColor.Color);
             }
-
-            
         }
 
-        char[] validateRGB = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',', ' ' };
+        private void ErrorConvert() {
+            hex.Text = "#";
+            Background = defColor;
+            ColorText(defColor.Color);
+        }
         private void rgbUp(object sender, EventArgs e) {
-
-            if (rgb.Text.Trim(validateRGB) == "") {
-                byte[] rgbColor = new byte[3];
-
-                byte n;
-                string tmp = "";
-                int colorIndex = 0;
-                for (int i = 0; i < rgb.Text.Length; i++) {
-                    if (rgb.Text[i] != ',') {
-                        tmp += rgb.Text[i];
-                    }
-                    else {
-                        if (byte.TryParse(tmp, out n)) {
-                            rgbColor[colorIndex] = byte.Parse(tmp);
-                            tmp = "";
-                            colorIndex++;
-                        } else {
-                            hex.Text = "#";
-                            Background = defColor;
-                            ColorText(defColor.Color);
-                            break;
-                        }
-                    }
-                    
-                    if (i == rgb.Text.Length - 1 && byte.TryParse(tmp, out n)) {
-                        rgbColor[colorIndex] = n;
+            string[] rgbStr = rgb.Text.Trim('r', 'g', 'b', '(', ')').Split(new string[] { ", ", " " }, StringSplitOptions.RemoveEmptyEntries);
+            byte[] rgbColor = new byte[3];
+            if (rgbStr.Length == 3) {
+                for (int i = 0; i < 3; i++) {
+                    if(!byte.TryParse(rgbStr[i], out rgbColor[i])) {
+                        ErrorConvert();
+                        return;
                     }
                 }
 
@@ -79,9 +62,8 @@ namespace ColorPicker {
                 Background = new SolidColorBrush(color);
                 ColorText(color);
             } else {
-                hex.Text = "#";
-                Background = defColor;
-                ColorText(defColor.Color);
+                ErrorConvert();
+                return;
             }
         }
 

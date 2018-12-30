@@ -99,4 +99,10 @@ namespace RationalNumbers {
             return $"{(sign == 1 || Numerator == 0 ? "" : "-")}{Numerator}{(Denominator == 1 ? "" : "//" + Denominator)}";
         }
     }
+
+    class MathRational {
+        public static Rational Abs(Rational number) {
+            return number > 0 ? number : -1 * number;
+        }
+    }
 }

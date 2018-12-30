@@ -10,8 +10,7 @@ using MatrixATF;
 namespace ElementaryTransformations
 {
     class Program {
-        static void Main(string[] args)
-        {
+        static void Main(string[] args) {
             ElementaryTransformations matrix = new ElementaryTransformations(new Matrix());
             ElementaryTransformations lastMatrix = new ElementaryTransformations(new Matrix());
 
@@ -22,6 +21,11 @@ namespace ElementaryTransformations
 
                 if (command.StartsWith("show")) {
                     Console.Write("\n" + matrix);
+                } else if (command.StartsWith("stepedd")) {
+                    matrix.SteppedForm();
+                }
+                else if (command.StartsWith("solve")) {
+                    matrix.Solve();
                 }
                 else if (command.StartsWith("new")) {
                     Console.WriteLine("\tНовая матрица: ");
@@ -134,6 +138,8 @@ namespace ElementaryTransformations
                 else {
                     Console.WriteLine("\tДоступный набор команд: ");
                     Console.WriteLine("\t\tshow");
+                    Console.WriteLine("\t\tstepedd");
+                    Console.WriteLine("\t\tsolve");
                     Console.WriteLine("\t\tnew");
                     Console.WriteLine("\t\tsubtract {line 1} {line 2} {const 2 = 1} {const 1 = 1}");
                     Console.WriteLine("\t\tmultiply {line} {const}");
@@ -159,7 +165,7 @@ namespace ElementaryTransformations
 
     class ElementaryTransformations {
         public Matrix data {
-            get;
+            get; private set;
         }
 
         public ElementaryTransformations(Matrix matrix)
@@ -175,9 +181,7 @@ namespace ElementaryTransformations
                 data[line1 - 1, j] -= data[line2 - 1, j];
             }
         }
-
-        public void Subtract(int line1, int line2, Rational constant2)
-        {
+        public void Subtract(int line1, int line2, Rational constant2) {
             line1 -= 1;
             line2 -= 1;
 
@@ -187,7 +191,6 @@ namespace ElementaryTransformations
                 data[line1, j] -= data[line2, j] * constant2;
             }
         }
-
         public void Subtract(int line1, int line2, Rational constant1, Rational constant2)
         {
             line1 -= 1;
@@ -199,7 +202,6 @@ namespace ElementaryTransformations
                 data[line1, j] = data[line1, j] * constant1 - data[line2, j] * constant2;
             }
         }
-
         public void MultiplyConst(int line, Rational constant)
         {
             line -= 1;
@@ -209,9 +211,7 @@ namespace ElementaryTransformations
                 data[line, j] *= constant;
             }
         }
-
-        public void SwapLines(int line1, int line2)
-        {
+        public void SwapLines(int line1, int line2) {
             line1 -= 1;
             line2 -= 1;
             Console.WriteLine($"\tМеняем строки местами {line1 + 1} и {line2 + 1}");
@@ -222,8 +222,34 @@ namespace ElementaryTransformations
                 data[line2, j] = tmp;
             }
         }
+        public void DeleteZeroLines() {
+            for (int i = 0; i < data.Lines; i++) {
+                for (int j = 0; j < data.Columns; j++) {
+                    if (data[i, j] != 0)
+                        break;
 
+                    if (j == data.Columns - 1) {
+                        DeleteZeroLine(i);
+                        Console.WriteLine($"Нулевая строка {i} удалена");
+                    }
+                }
+            }
 
+            void DeleteZeroLine(int line) {
+                int offset = 0;
+                Rational[,] rationals = new Rational[data.Lines - 1, data.Columns];
+                for (int i = 0; i < data.Lines; i++) {
+                    if (line == i)
+                        for (int j = 0; j < data.Columns; j++) {
+                            rationals[i - offset, j] = data[i, j];
+                        }
+                    else {
+                        offset++;
+                    }
+                }
+            }
+        }
+        
         public override string ToString()
         {
             string tmp = "\t";
@@ -235,6 +261,70 @@ namespace ElementaryTransformations
             }
             tmp += "\n";
             return tmp;
+        }
+
+        public void SteppedForm() {
+            data = GetSteppedForm().data;
+        }
+        public ElementaryTransformations GetSteppedForm() {
+            ElementaryTransformations newMatrix = CopyMatrix();
+            for (int i = 0; i < newMatrix.data.Lines; i++) {
+                var keyElement = newMatrix.FindKeyElemnt(i);
+                if (keyElement.Item1 != -1 && keyElement.Item2 != -1) {
+                    if (i != keyElement.Item1)
+                        newMatrix.SwapLines(i + 1, keyElement.Item1 + 1);
+                    if (newMatrix.data[i, keyElement.Item2] != 1)
+                        newMatrix.MultiplyConst(i + 1, 1 / newMatrix.data[i, keyElement.Item2]);
+
+                    for (int k = i + 1; k < newMatrix.data.Lines; k++) {
+                        if (newMatrix.data[k, keyElement.Item2] != 0)
+                            newMatrix.Subtract(k + 1, i + 1, newMatrix.data[k, keyElement.Item2]);
+                    }
+                }
+            }
+
+            newMatrix.DeleteZeroLines();
+
+            return newMatrix;
+        }
+
+        public void Solve() {
+            data = GetSolve().data;
+        }
+        public ElementaryTransformations GetSolve() {
+            ElementaryTransformations newMatrix = GetSteppedForm();
+
+            int currentCol = newMatrix.data.Lines - 1;
+            for (int i = currentCol; i > 0; i--) {
+                for (int k = i - 1; k >= 0; k--) {
+                    newMatrix.Subtract(k + 1, i + 1, newMatrix.data[k, currentCol]);
+                }
+                currentCol--;
+            }
+
+            return newMatrix;
+        }
+        
+        private (int, int) FindKeyElemnt(int startIndex) {
+            for (int j = startIndex; j < data.Columns; j++) {
+                for (int i = startIndex; i < data.Lines; i++) {
+                    if (data[i, j] != 0) {
+                        return (i, j);
+                    }
+                }
+            }
+            return (-1, -1);
+        }
+        private ElementaryTransformations CopyMatrix() {
+            Rational[,] newData = new Rational[data.Lines, data.Columns];
+
+            for (int i = 0; i < data.Lines; i++) {
+                for (int j = 0; j < data.Lines; j++) {
+                    newData[i, j] = data[i, j];
+                }
+            }
+
+            return new ElementaryTransformations(new Matrix(newData));
         }
     }
 }

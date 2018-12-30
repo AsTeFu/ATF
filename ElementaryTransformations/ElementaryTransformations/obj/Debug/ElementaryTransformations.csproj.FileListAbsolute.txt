@@ -4,3 +4,4 @@ C:\Users\Vyacheslav\source\repos\ElementaryTransformations\ElementaryTransformat
 C:\Users\Vyacheslav\source\repos\ElementaryTransformations\ElementaryTransformations\obj\Debug\ElementaryTransformations.csproj.CoreCompileInputs.cache
 C:\Users\Vyacheslav\source\repos\ElementaryTransformations\ElementaryTransformations\obj\Debug\ElementaryTransformations.exe
 C:\Users\Vyacheslav\source\repos\ElementaryTransformations\ElementaryTransformations\obj\Debug\ElementaryTransformations.pdb
+C:\Users\Vyacheslav\source\repos\ElementaryTransformations\ElementaryTransformations\obj\Debug\ElementaryTransformations.csprojAssemblyReference.cache

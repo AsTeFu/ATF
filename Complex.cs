@@ -14,8 +14,8 @@ namespace ComplexNumbers {
             }
         }
 
-        private double Real;
-        private double Imaginary;
+        public readonly double Real;
+        public readonly double Imaginary;
 
         public Complex(double real, double imaginary = 0) {
             Real = real;

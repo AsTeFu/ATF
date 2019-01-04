@@ -6,40 +6,54 @@ using System.Threading.Tasks;
 
 namespace NumeralSystem {
     class Convert {
-        public double DecimalNumber {
-            get; private set;
+        public readonly decimal DecimalNumber;
+        public int Accuracy {
+            get {
+                return accuracy;
+            }
+            set {
+                if (value > minAccuracy && value <= maxAccuracy) {
+                    accuracy = value;
+                }
+            }
         }
+        private int accuracy;
+        private readonly int minAccuracy = 0;
+        private readonly int maxAccuracy = 200;
 
-        private Convert(double decimalNumber) {
+
+        private Convert(decimal decimalNumber) {
+            Accuracy = 25;
             DecimalNumber = decimalNumber;
         }
         public Convert(string number, int system) {
+            Accuracy = 25;
             DecimalNumber = ToDecimalNumber(number, system);
         }
         public string TranslateSystem(int system) {
             string number = "";
 
-            long decimalInteger = (long)DecimalNumber;
-            double decimalFractional = DecimalNumber - decimalInteger;
+            decimal decimalInteger = Math.Floor(DecimalNumber);
+            decimal decimalFractional = DecimalNumber - decimalInteger;
 
             while (decimalInteger > 0) {
                 number = GetSymbolFromNum(decimalInteger % system) + number;
-                decimalInteger /= system;
+                decimalInteger = Math.Floor(decimalInteger / system);
             }
 
-            if (decimalFractional > 0.00000001d) {
+            if (decimalFractional > 0) {
                 number += ".";
 
-                for (int i = 0; i < 25; i++) {
-                    number += GetSymbolFromNum((long)(decimalFractional * system));
-                    decimalFractional = (decimalFractional * system) - (long)(decimalFractional * system);
+                for (int i = 0; i < Accuracy; i++) {
+                    number += GetSymbolFromNum(Math.Floor(decimalFractional * system));
+                    decimalFractional = (decimalFractional * system) - Math.Floor(decimalFractional * system);
                 }
             }
 
             return number;
         }
         
-        private double ToDecimalNumber(string number, int system) {
+        private decimal ToDecimalNumber(string number, int system) {
             string[] str = number.Trim('_', ' ').ToUpper().Split(new string[] { ".", "," }, StringSplitOptions.RemoveEmptyEntries);
 
             string integer = GetValidNumber(str[0], system);
@@ -49,15 +63,15 @@ namespace NumeralSystem {
 
             return GetDecimal(system, integer, fractional);
         }
-        private double GetDecimal(int system, string integer, string fractional) {
-            double decimalInteger = 0;
+        private decimal GetDecimal(int system, string integer, string fractional) {
+            decimal decimalInteger = 0;
 
             for (int i = 0; i < integer.Length; i++) {
-                decimalInteger += GetNumFromSymbol(integer[i]) * Math.Pow(system, integer.Length - 1 - i);
+                decimalInteger += GetNumFromSymbol(integer[i]) * (decimal)Math.Pow(system, integer.Length - 1 - i);
             }
 
             for (int i = 0; i < fractional.Length; i++) {
-                decimalInteger += GetNumFromSymbol(fractional[i]) * Math.Pow(system, -(i + 1));
+                decimalInteger += GetNumFromSymbol(fractional[i]) * (decimal)Math.Pow(system, -(i + 1));
             }
 
             return decimalInteger;
@@ -99,13 +113,13 @@ namespace NumeralSystem {
                 return num;
             else return symbol - 'A' + 10;
         }
-        private string GetSymbolFromNum(long num) {
+        private string GetSymbolFromNum(decimal num) {
             if (num < 10)
                 return num.ToString();
             else return ((char)(num - 10 + 'A')).ToString();
         }
 
-        public static implicit operator Convert(double num) {
+        public static implicit operator Convert(decimal num) {
             return new Convert(num);
         }
         public static implicit operator Convert((string, int) num) {

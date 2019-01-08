@@ -1,0 +1,9 @@
+C:\Users\Vyacheslav\source\repos\ATF_SharedProject\ATF\bin\Debug\netstandard2.0\ATF.deps.json
+C:\Users\Vyacheslav\source\repos\ATF_SharedProject\ATF\bin\Debug\netstandard2.0\ATF.dll
+C:\Users\Vyacheslav\source\repos\ATF_SharedProject\ATF\bin\Debug\netstandard2.0\ATF.pdb
+C:\Users\Vyacheslav\source\repos\ATF_SharedProject\ATF\obj\Debug\netstandard2.0\ATF.csprojAssemblyReference.cache
+C:\Users\Vyacheslav\source\repos\ATF_SharedProject\ATF\obj\Debug\netstandard2.0\ATF.csproj.CoreCompileInputs.cache
+C:\Users\Vyacheslav\source\repos\ATF_SharedProject\ATF\obj\Debug\netstandard2.0\ATF.AssemblyInfoInputs.cache
+C:\Users\Vyacheslav\source\repos\ATF_SharedProject\ATF\obj\Debug\netstandard2.0\ATF.AssemblyInfo.cs
+C:\Users\Vyacheslav\source\repos\ATF_SharedProject\ATF\obj\Debug\netstandard2.0\ATF.dll
+C:\Users\Vyacheslav\source\repos\ATF_SharedProject\ATF\obj\Debug\netstandard2.0\ATF.pdb

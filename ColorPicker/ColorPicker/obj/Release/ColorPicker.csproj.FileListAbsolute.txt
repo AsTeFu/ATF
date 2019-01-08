@@ -1,0 +1,15 @@
+C:\Users\Vyacheslav\Documents\GitHub\ATF\ColorPicker\ColorPicker\bin\Release\ColorPicker.exe.config
+C:\Users\Vyacheslav\Documents\GitHub\ATF\ColorPicker\ColorPicker\bin\Release\ColorPicker.exe
+C:\Users\Vyacheslav\Documents\GitHub\ATF\ColorPicker\ColorPicker\bin\Release\ColorPicker.pdb
+C:\Users\Vyacheslav\Documents\GitHub\ATF\ColorPicker\ColorPicker\obj\Release\ColorPicker.csprojAssemblyReference.cache
+C:\Users\Vyacheslav\Documents\GitHub\ATF\ColorPicker\ColorPicker\obj\Release\MainWindow.g.cs
+C:\Users\Vyacheslav\Documents\GitHub\ATF\ColorPicker\ColorPicker\obj\Release\App.g.cs
+C:\Users\Vyacheslav\Documents\GitHub\ATF\ColorPicker\ColorPicker\obj\Release\ColorPicker_MarkupCompile.cache
+C:\Users\Vyacheslav\Documents\GitHub\ATF\ColorPicker\ColorPicker\obj\Release\ColorPicker_MarkupCompile.lref
+C:\Users\Vyacheslav\Documents\GitHub\ATF\ColorPicker\ColorPicker\obj\Release\MainWindow.baml
+C:\Users\Vyacheslav\Documents\GitHub\ATF\ColorPicker\ColorPicker\obj\Release\ColorPicker.g.resources
+C:\Users\Vyacheslav\Documents\GitHub\ATF\ColorPicker\ColorPicker\obj\Release\ColorPicker.Properties.Resources.resources
+C:\Users\Vyacheslav\Documents\GitHub\ATF\ColorPicker\ColorPicker\obj\Release\ColorPicker.csproj.GenerateResource.cache
+C:\Users\Vyacheslav\Documents\GitHub\ATF\ColorPicker\ColorPicker\obj\Release\ColorPicker.csproj.CoreCompileInputs.cache
+C:\Users\Vyacheslav\Documents\GitHub\ATF\ColorPicker\ColorPicker\obj\Release\ColorPicker.exe
+C:\Users\Vyacheslav\Documents\GitHub\ATF\ColorPicker\ColorPicker\obj\Release\ColorPicker.pdb

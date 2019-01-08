@@ -1,0 +1,7 @@
+C:\Users\Vyacheslav\Documents\GitHub\ATF\ElementaryTransformations\ElementaryTransformations\bin\Release\ElementaryTransformations.exe.config
+C:\Users\Vyacheslav\Documents\GitHub\ATF\ElementaryTransformations\ElementaryTransformations\bin\Release\ElementaryTransformations.exe
+C:\Users\Vyacheslav\Documents\GitHub\ATF\ElementaryTransformations\ElementaryTransformations\bin\Release\ElementaryTransformations.pdb
+C:\Users\Vyacheslav\Documents\GitHub\ATF\ElementaryTransformations\ElementaryTransformations\obj\Release\ElementaryTransformations.csprojAssemblyReference.cache
+C:\Users\Vyacheslav\Documents\GitHub\ATF\ElementaryTransformations\ElementaryTransformations\obj\Release\ElementaryTransformations.csproj.CoreCompileInputs.cache
+C:\Users\Vyacheslav\Documents\GitHub\ATF\ElementaryTransformations\ElementaryTransformations\obj\Release\ElementaryTransformations.exe
+C:\Users\Vyacheslav\Documents\GitHub\ATF\ElementaryTransformations\ElementaryTransformations\obj\Release\ElementaryTransformations.pdb

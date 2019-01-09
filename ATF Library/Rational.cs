@@ -26,15 +26,17 @@
                 if (num.Length == 2) {
                     denominator = (long)Math.Pow(10, num[1].Length);
 
-                    long tmp = long.Parse(num[0]);
-                    numerator = ((Math.Abs(tmp) * denominator) + long.Parse(num[1])) * Math.Sign(tmp);
+                    sign = long.Parse(num[0]) >= 0 ? 1 : -1;
+
+                    numerator = (Math.Abs(long.Parse(num[0])) * denominator) + long.Parse(num[1]);
                 }
                 else {
                     numerator = long.Parse(num[0]);
+                    sign = numerator >= 0 ? 1 : -1;
 
                     denominator = 1;
                 }
-                sign = Math.Sign(numerator);
+                
                 numerator = Math.Abs(numerator);
 
                 var rational = Reduce(numerator, denominator);

@@ -1,0 +1,9 @@
+C:\Users\Vycheslav\Desktop\HuffmanCode\HuffmanCode\bin\Debug\HuffmanCode.exe.config
+C:\Users\Vycheslav\Desktop\HuffmanCode\HuffmanCode\bin\Debug\HuffmanCode.exe
+C:\Users\Vycheslav\Desktop\HuffmanCode\HuffmanCode\bin\Debug\HuffmanCode.pdb
+C:\Users\Vycheslav\Desktop\HuffmanCode\HuffmanCode\obj\Debug\HuffmanCode.Form1.resources
+C:\Users\Vycheslav\Desktop\HuffmanCode\HuffmanCode\obj\Debug\HuffmanCode.Properties.Resources.resources
+C:\Users\Vycheslav\Desktop\HuffmanCode\HuffmanCode\obj\Debug\HuffmanCode.csproj.GenerateResource.cache
+C:\Users\Vycheslav\Desktop\HuffmanCode\HuffmanCode\obj\Debug\HuffmanCode.csproj.CoreCompileInputs.cache
+C:\Users\Vycheslav\Desktop\HuffmanCode\HuffmanCode\obj\Debug\HuffmanCode.exe
+C:\Users\Vycheslav\Desktop\HuffmanCode\HuffmanCode\obj\Debug\HuffmanCode.pdb

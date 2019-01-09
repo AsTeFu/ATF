@@ -1,0 +1,7 @@
+C:\Users\Vyacheslav\Documents\GitHub\ATF\PrimeNumbers\PrimeList\PrimeList\bin\Release\PrimeList.exe.config
+C:\Users\Vyacheslav\Documents\GitHub\ATF\PrimeNumbers\PrimeList\PrimeList\bin\Release\PrimeList.exe
+C:\Users\Vyacheslav\Documents\GitHub\ATF\PrimeNumbers\PrimeList\PrimeList\bin\Release\PrimeList.pdb
+C:\Users\Vyacheslav\Documents\GitHub\ATF\PrimeNumbers\PrimeList\PrimeList\obj\Release\PrimeList.csprojAssemblyReference.cache
+C:\Users\Vyacheslav\Documents\GitHub\ATF\PrimeNumbers\PrimeList\PrimeList\obj\Release\PrimeList.csproj.CoreCompileInputs.cache
+C:\Users\Vyacheslav\Documents\GitHub\ATF\PrimeNumbers\PrimeList\PrimeList\obj\Release\PrimeList.exe
+C:\Users\Vyacheslav\Documents\GitHub\ATF\PrimeNumbers\PrimeList\PrimeList\obj\Release\PrimeList.pdb

@@ -1,5 +1,5 @@
-Time: 23 ms
-Ticks: 78557
+Time: 18 ms
+Ticks: 186395
 All numbers count: 78493
 Max numbers count: 1000000
 

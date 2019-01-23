@@ -6,17 +6,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 
 namespace PrimeList {
     class Program {
         static void Main(string[] args) {
-
+            
             PrimeNumbers primes = new PrimeNumbers();
             
             Console.Write("Введите предел поиска простых чисел = ");
 
-            ulong maxNumber = ulong.Parse(Console.ReadLine());
-
+            uint maxNumber = uint.Parse(Console.ReadLine());
+            
             List<uint> p = primes.EratosthenesTable(maxNumber);
 
             string appRoot = AppDomain.CurrentDomain.BaseDirectory;
@@ -33,7 +34,7 @@ namespace PrimeList {
                     sw.Write(p[i] + "\t");
                 }
             }
-            
+
             Console.WriteLine($"Time: {primes.TimeWork} ms\n" 
                             + $"Ticks: {primes.TickWork}\n"
                             + $"All numbers count: {p.Count}\n"
@@ -76,12 +77,12 @@ namespace PrimeList {
 
         public List<uint> primeNumbers = new List<uint>();
 
-        public List<uint> EratosthenesTable(ulong n) {
+        public List<uint> EratosthenesTable(uint n) {
             return GetPrimeOptimize(n);
         }
 
-        private List<uint> GetPrimes(ulong n) {
-            byte[] allNumbers = new byte[n + 1UL];
+        private List<uint> GetPrimes(uint n) {
+            byte[] allNumbers = new byte[n + 1];
             List<uint> primeNumbers = new List<uint>();
 
             primeNumbers.Add(2);
@@ -91,7 +92,7 @@ namespace PrimeList {
                 if (allNumbers[i] == 0) {
                     primeNumbers.Add(i);
 
-                    for (ulong j = i * i; j <= n; j += i) {
+                    for (long j = i * i; j <= n; j += i) {
                         allNumbers[j] = 1;
                     }
                 }
@@ -100,7 +101,7 @@ namespace PrimeList {
 
             return primeNumbers;
         }
-        private List<uint> GetPrimeOptimize(ulong n) {
+        private List<uint> GetPrimeOptimize(uint n) {
             byte[] allNumbers = new byte[(n % 2 == 1 ? n : n + 1) / 2];
             List<uint> primeNumbers = new List<uint>();
 
@@ -110,10 +111,11 @@ namespace PrimeList {
             for (uint i = 3; i <= n; i += 2) {
                 if (allNumbers[(i - 3) / 2] == 0) {
                     primeNumbers.Add(i);
-
-                    for (ulong j = i * i; j <= n; j += 2 * i) {
-                        allNumbers[(j - 3) / 2] = 1;
-                    }
+                    
+                    if (i * 1L * i <= n)
+                        for (uint j = i * i; j <= n; j += 2 * i) {
+                            allNumbers[(j - 3) / 2] = 1;
+                        }
                 }
             }
             timer.Stop();
@@ -121,4 +123,6 @@ namespace PrimeList {
             return primeNumbers;
         }
     }
+
+   
 }

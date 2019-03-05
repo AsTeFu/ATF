@@ -115,6 +115,24 @@ number3.TranslateSystem(9); //1
 number4.TranslateSystem(10); //231
 ```
 
+## Перестановки
+Перестановки, разложение в произведение независимых циклов и траспозиций, декремнт, знак, порядок и возведение в степень
+
+```c#
+Permutation example = new Permutation(10, 4, 6, 8, 3, 2, 5, 7, 9, 1);
+
+Console.WriteLine(example.PrintCycle());
+Console.WriteLine(example.PrintTransposition());
+
+Console.WriteLine("Декремент: " + example.decrement);
+Console.WriteLine("Знак: " + example.sign);
+Console.WriteLine("Порядок: " + example.order);
+
+Console.WriteLine(example.Pow(87));
+```
+![screenshot](https://pp.userapi.com/c849336/v849336206/145ef7/ewSkAW_D5NE.jpg)
+
+
 # А вот тут много всякого нерабочего.exe
 ## COLOR PICKER
 Перевод из HEX в RGB и обратно
@@ -176,4 +194,3 @@ number4.TranslateSystem(10); //231
    * Button -  создает кнопку в инспекторе
 * Поле типа Color с пресетами
 * Контур колайдера
- 
